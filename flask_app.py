@@ -5,8 +5,8 @@ from datetime import datetime
 import matplotlib.pyplot as plt
 import io
 import os
-
 import matplotlib
+
 matplotlib.use('Agg')
 
 app = Flask(__name__)
