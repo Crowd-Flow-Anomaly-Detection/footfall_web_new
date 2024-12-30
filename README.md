@@ -72,7 +72,7 @@ curl -X POST http://127.0.0.1:5000/api/upload -F "file=@data.json"
 curl -X POST http://127.0.0.1:5000/api/upload -F "file=@for_test_upload_data.json"
 ```
 
-### 上傳影片到資料庫
+### 上傳影片到資料庫 (資料夾clients_video)
 ```bash
 curl -X POST http://127.0.0.1:5000/api/upload_video -F "video=@影片路徑"
 ```
