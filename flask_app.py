@@ -193,5 +193,36 @@ def footfall_chart(year, month, day):
     
     return send_file(img, mimetype='image/png')
 
+# 確保影片上傳資料夾存在
+VIDEO_UPLOAD_FOLDER = './clients_video'
+app.config['VIDEO_UPLOAD_FOLDER'] = VIDEO_UPLOAD_FOLDER
+
+if not os.path.exists(VIDEO_UPLOAD_FOLDER):
+    os.makedirs(VIDEO_UPLOAD_FOLDER)
+
+# 處理影片上傳的 API 端點
+@app.route('/api/upload_video', methods=['POST'])
+def upload_video():
+    if 'video' not in request.files:
+        return jsonify({"error": "No video file uploaded"}), 400
+
+    video = request.files['video']
+
+    if video.filename == '':
+        return jsonify({"error": "No video file selected"}), 400
+
+    # 檢查檔案類型，確保是影片檔案
+    allowed_extensions = {'.mp4', '.avi', '.mov', '.mkv'}
+    file_ext = os.path.splitext(video.filename)[1].lower()
+
+    if file_ext not in allowed_extensions:
+        return jsonify({"error": "Invalid video file format"}), 400
+
+    # 儲存影片檔案到指定資料夾
+    filepath = os.path.join(app.config['VIDEO_UPLOAD_FOLDER'], video.filename)
+    video.save(filepath)
+
+    return jsonify({"message": "Video uploaded successfully", "file_path": filepath}), 201
+
 if __name__ == '__main__':
     app.run(debug=True)
