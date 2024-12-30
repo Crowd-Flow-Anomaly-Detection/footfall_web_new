@@ -65,9 +65,15 @@ curl -X PUT http://127.0.0.1:5000/api/footfall/2024-07-28/14 -H "Content-Type: a
 curl -X DELETE http://127.0.0.1:5000/api/footfall/2024-07-28/14
 ```
 
-### 上傳檔案加到資料庫
+### 上傳檔案到資料庫
 
 ```bash
 curl -X POST http://127.0.0.1:5000/api/upload -F "file=@data.json"
 curl -X POST http://127.0.0.1:5000/api/upload -F "file=@for_test_upload_data.json"
 ```
+
+### 上傳影片到資料庫
+```bash
+curl -X POST http://127.0.0.1:5000/api/upload_video -F "video=@影片路徑"
+```
+
