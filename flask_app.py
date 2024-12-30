@@ -217,9 +217,14 @@ def upload_video():
 
     if file_ext not in allowed_extensions:
         return jsonify({"error": "Invalid video file format"}), 400
+    
+    # 為檔名新增日期時間
+    timestamp = datetime.now().strftime('%Y%m%d_%H%M%S')  # 格式: YYYYMMDD_HHMMSS
+    original_name = os.path.splitext(video.filename)[0]
+    new_filename = f"{original_name}_{timestamp}{file_ext}"
 
     # 儲存影片檔案到指定資料夾
-    filepath = os.path.join(app.config['VIDEO_UPLOAD_FOLDER'], video.filename)
+    filepath = os.path.join(app.config['VIDEO_UPLOAD_FOLDER'], new_filename)
     video.save(filepath)
 
     return jsonify({"message": "Video uploaded successfully", "file_path": filepath}), 201
